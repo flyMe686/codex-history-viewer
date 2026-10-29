@@ -15055,6 +15055,55 @@
       : `${year}-${month}-${day} ${hour}:${minute}`;
   }
 
+  function addCodeLineNumbers(pre) {
+    const lines = pre.querySelectorAll("code > .line");
+    pre.classList.add("codePre-numbered");
+    pre.style.setProperty("--code-line-number-width", `${String(lines.length).length + 1}ch`);
+    for (const [index, line] of lines.entries()) {
+      line.setAttribute("data-line-number", String(index + 1));
+    }
+  }
+
+  function createPlainCodeBlockElement(codeText) {
+    const pre = el("pre", { className: "codePre codePre-plain" });
+    const code = el("code", {});
+    const lines = codeText.split(/\r\n|\r|\n/);
+    for (const [index, text] of lines.entries()) {
+      const line = el("span", { className: "line" });
+      line.textContent = text;
+      // A final newline does not add a visible row to a plain <pre>.
+      if (index === lines.length - 1 && !text) line.classList.add("codeLine-trailing");
+      code.appendChild(line);
+    }
+    pre.appendChild(code);
+    addCodeLineNumbers(pre);
+    registerPageSearchTextUnit(pre, codeText, "shiki-lines");
+    return pre;
+  }
+
+  function createCodeBlockActions(wrap, copyButton) {
+    const actions = el("div", { className: "codeHeaderActions" });
+    const button = el("button", { type: "button", className: "codeWrapBtn iconBtn" });
+    button.innerHTML = '<svg viewBox="0 0 16 16" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"><path fill="none" d="M2 3.5h12M2 7.5h9a2.5 2.5 0 0 1 0 5H8m2-2-2 2 2 2M2 11.5h3"/></svg>';
+    const updateButton = (wrapped) => {
+      const label = wrapped
+        ? i18n.disableCodeWrapping || localization.defaults.disableCodeWrapping
+        : i18n.enableCodeWrapping || localization.defaults.enableCodeWrapping;
+      button.title = label;
+      button.setAttribute("aria-label", label);
+      button.setAttribute("aria-pressed", String(wrapped));
+    };
+    updateButton(false);
+    button.addEventListener("click", (event) => {
+      event.preventDefault();
+      event.stopPropagation();
+      updateButton(wrap.classList.toggle("codeBlock-wrapped"));
+    });
+    actions.appendChild(button);
+    actions.appendChild(copyButton);
+    return actions;
+  }
+
   function renderCodeBlock(lang, code, options) {
     const codeText = String(code || "");
     const explicitLanguage = typeof lang === "string" ? lang.trim() : "";
@@ -15090,17 +15139,14 @@
       e.stopPropagation();
       vscode.postMessage({ type: "copy", text: codeText });
     });
-    header.appendChild(btn);
+    header.appendChild(createCodeBlockActions(wrap, btn));
     wrap.appendChild(header);
 
     const highlightedPre = explicitLanguage ? createHighlightedCodeBlockElement(codeText, explicitLanguage) : null;
     if (highlightedPre) {
       wrap.appendChild(highlightedPre);
     } else {
-      const pre = el("pre", {});
-      pre.textContent = codeText;
-      registerPageSearchTextUnit(pre, codeText, "direct");
-      wrap.appendChild(pre);
+      wrap.appendChild(createPlainCodeBlockElement(codeText));
     }
     return wrap;
   }
@@ -16777,7 +16823,7 @@
         e.stopPropagation();
         vscode.postMessage({ type: "copy", text: String(codeText || "") });
       });
-      header.appendChild(btn);
+      header.appendChild(createCodeBlockActions(wrap, btn));
       wrap.appendChild(header);
 
       pre.replaceWith(wrap);
@@ -16785,8 +16831,7 @@
       if (highlightedPre) {
         wrap.appendChild(highlightedPre);
       } else {
-        registerPageSearchTextUnit(pre, codeText, "direct");
-        wrap.appendChild(pre);
+        wrap.appendChild(createPlainCodeBlockElement(codeText));
       }
     }
   }
@@ -18828,6 +18873,7 @@
     removeShikiLineBreakTextNodes(highlightedPre);
     highlightedPre.classList.add("codePre");
     highlightedPre.setAttribute("dir", "ltr");
+    addCodeLineNumbers(highlightedPre);
     if (!registerPageSearchTextUnit(highlightedPre, String(codeText ?? ""), "shiki-lines")) return null;
     return highlightedPre;
   }

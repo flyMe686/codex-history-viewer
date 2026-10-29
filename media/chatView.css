@@ -6088,10 +6088,22 @@ body.vscode-high-contrast-light .markdown .taskListCheckbox {
   border-color: var(--chv-accent);
 }
 
-.codeHeader .codeCopyBtn.iconBtn {
-  /* Keep code block copy buttons compact when rendered as icons. */
+.codeHeaderActions {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.codeHeader .codeCopyBtn.iconBtn,
+.codeHeader .codeWrapBtn.iconBtn {
+  /* Keep code block actions compact when rendered as icons. */
   padding: 2px 6px;
   line-height: 0;
+}
+
+.codeHeader .codeWrapBtn[aria-pressed="true"] {
+  color: var(--chv-accent);
+  border-color: var(--chv-accent);
 }
 
 pre {
@@ -6120,7 +6132,7 @@ pre {
   background: var(--chv-code-bg);
 }
 
-.codeBlock .shiki code {
+.codeBlock .codePre code {
   display: block;
   min-width: max-content;
   background: transparent;
@@ -6128,12 +6140,53 @@ pre {
   border-radius: 0;
 }
 
-.codeBlock .shiki .line {
+.codeBlock .codePre .line {
   display: block;
 }
 
-.codeBlock .shiki .line:empty {
+.codeBlock .codePre .line:empty {
   min-height: 1lh;
+}
+
+.codeBlock .codePre-numbered code {
+  padding-left: var(--code-line-number-width);
+}
+
+.codeBlock .codePre-plain code {
+  font-family: inherit;
+  font-size: inherit;
+}
+
+.codePre-numbered .line {
+  position: relative;
+}
+
+.codePre-numbered .line::before {
+  content: attr(data-line-number);
+  position: absolute;
+  right: 100%;
+  top: 0;
+  width: var(--code-line-number-width);
+  box-sizing: border-box;
+  padding-right: 1ch;
+  text-align: right;
+  color: var(--chv-muted);
+  user-select: none;
+  pointer-events: none;
+}
+
+.codeBlock .codePre .codeLine-trailing:empty {
+  display: none;
+}
+
+.codeBlock-wrapped pre,
+.codeBlock-wrapped pre code {
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+
+.codeBlock-wrapped .codePre code {
+  min-width: 0;
 }
 
 body.vscode-dark .codeBlock .shiki {
