@@ -304,6 +304,8 @@
       "stickyUserOpenOriginal": "chat.stickyUser.openOriginal",
       "copyMessageTooltip": "chat.tooltip.copyMessage",
       "copyCodeTooltip": "chat.tooltip.copyCode",
+      "enableCodeWrapping": "chat.tooltip.enableCodeWrapping",
+      "disableCodeWrapping": "chat.tooltip.disableCodeWrapping",
       "copyTableTooltip": "chat.tooltip.copyTable",
       "expandCardWidthTooltip": "chat.tooltip.expandCardWidth",
       "restoreCardWidthTooltip": "chat.tooltip.restoreCardWidth",

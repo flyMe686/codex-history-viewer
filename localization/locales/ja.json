@@ -927,6 +927,8 @@
     "chat.tooltip.copyResume": "このセッションの軽量な再開用プロンプト（タスクと直近メッセージ）をクリップボードにコピーします。",
     "chat.tooltip.copyMessage": "このメッセージ本文をクリップボードにコピーします。",
     "chat.tooltip.copyCode": "このコードブロックをクリップボードにコピーします。",
+    "chat.tooltip.enableCodeWrapping": "折り返しを有効にする",
+    "chat.tooltip.disableCodeWrapping": "折り返しを無効にする",
     "chat.tooltip.copyTable": "この表をMarkdownとしてクリップボードにコピーします。",
     "chat.tooltip.expandCardWidth": "このカードを最大幅まで広げます。",
     "chat.tooltip.restoreCardWidth": "このカードを通常の幅に戻します。",

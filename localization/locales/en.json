@@ -927,6 +927,8 @@
     "chat.tooltip.copyResume": "Copy a lightweight resume prompt (task + recent messages) to the clipboard.",
     "chat.tooltip.copyMessage": "Copy this message text to the clipboard.",
     "chat.tooltip.copyCode": "Copy this code block to the clipboard.",
+    "chat.tooltip.enableCodeWrapping": "Enable soft wrapping",
+    "chat.tooltip.disableCodeWrapping": "Disable soft wrapping",
     "chat.tooltip.copyTable": "Copy this table as Markdown to the clipboard.",
     "chat.tooltip.expandCardWidth": "Expand this card to full width.",
     "chat.tooltip.restoreCardWidth": "Restore this card to its normal width.",
