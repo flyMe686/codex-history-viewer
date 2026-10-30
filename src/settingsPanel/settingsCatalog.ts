@@ -324,6 +324,7 @@ export const SETTINGS_DEFINITIONS: readonly SettingsDefinition[] = [
   definition("chat.openPosition", "session", "session.content", "select", "application", "top", {
     options: ["top", "lastMessage", "latest"].map((value) => option("chat.openPosition", value))
   }),
+  definition("chat.defaultSoftWrap", "session", "session.content", "switch", "application", false),
   definition("chat.stickyUserPrompt", "session", "session.content", "switch", "application", true, {
     applyTiming: "sessionReload"
   }),

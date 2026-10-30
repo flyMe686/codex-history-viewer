@@ -2,7 +2,7 @@
 
 Browse, search, organize, and resume past Codex CLI / Claude Code sessions through the official VS Code extensions or prepared CLI commands.
 
-Latest release: **2.20.0** (2026-10-27).
+Latest release: **2.20.1** (2026-10-30).
 
 ![Codex History Viewer screenshot](media/screenshot.png)
 
@@ -311,6 +311,7 @@ Common settings include:
 - `codexHistoryViewer.fileChangeHistory.explorerContextMenu.enabled`: show File AI Change History in Explorer.
 - `codexHistoryViewer.autoRefresh.enabled`: watch local session files and refresh the History tree and opted-in session tabs when the VS Code window is focused and the History tree is visible or an opted-in session tab is open.
 - `codexHistoryViewer.chat.openPosition`: open the session view at the top, the last viewed message, or the latest rendered card.
+- `codexHistoryViewer.chat.defaultSoftWrap`: turn soft wrapping on or off by default for code blocks and diff hunks (default: off). Individual blocks can still be toggled.
 - `codexHistoryViewer.chat.stickyUserPrompt`: keep the current user prompt visible while scrolling the session timeline.
 - `codexHistoryViewer.chat.performanceMode`: choose the default session rendering performance mode.
 - `codexHistoryViewer.chat.turnTimeline.mode`: enable the opt-in turn timeline for Codex and Claude Code sessions with `off`, `basic`, or `live`.

@@ -399,6 +399,7 @@
   /** @type {{ timeZone?: string }} */
   let dateTime = {};
   let toolDisplayMode = "detailsOnly";
+  let defaultSoftWrap = false;
   let userLongMessageFolding = "off";
   let assistantLongMessageFolding = "off";
   let stickyUserPromptEnabled = true;
@@ -461,7 +462,7 @@
   let pageSearchTemporaryAttachmentDetailKeys = new Set();
   let expandedUsageCardKeys = new Set();
   let wideTimelineCardKeys = new Set();
-  let wrappedPatchHunkKeys = new Set();
+  let patchHunkWrapOverrides = new Map();
   let isPinned = false;
   let bookmarkedKeys = new Set();
   let nativeBookmarkedKeys = new Set();
@@ -1299,7 +1300,7 @@
       const prevExpandedProtocolContextKeys = new Set(expandedProtocolContextKeys);
       const prevExpandedUsageCardKeys = new Set(expandedUsageCardKeys);
       const prevWideTimelineCardKeys = new Set(wideTimelineCardKeys);
-      const prevWrappedPatchHunkKeys = new Set(wrappedPatchHunkKeys);
+      const prevPatchHunkWrapOverrides = new Map(patchHunkWrapOverrides);
       const previousSessionInfoSnapshot = sessionInfoSnapshot;
       const previousResumeToolbarPresentationKey = buildResumeToolbarPresentationKey();
       const previousIsPinned = isPinned;
@@ -1382,6 +1383,7 @@
       configuredPerformanceMode = normalizePerformanceMode(msg.chatPerformanceMode);
       performanceStats = normalizePerformanceStats(msg.performanceStats);
       toolDisplayMode = msg.toolDisplayMode === "compactCards" ? "compactCards" : "detailsOnly";
+      defaultSoftWrap = msg.defaultSoftWrap === true;
       userLongMessageFolding = normalizeLongMessageFoldingMode(
         typeof msg.userLongMessageFolding === "string" ? msg.userLongMessageFolding : msg.longMessageFolding,
       );
@@ -1448,7 +1450,7 @@
       expandedProtocolContextKeys = shouldPreserveUiState ? prevExpandedProtocolContextKeys : new Set();
       expandedUsageCardKeys = shouldPreserveUiState ? prevExpandedUsageCardKeys : new Set();
       wideTimelineCardKeys = shouldPreserveUiState ? prevWideTimelineCardKeys : new Set();
-      wrappedPatchHunkKeys = shouldPreserveUiState ? prevWrappedPatchHunkKeys : new Set();
+      patchHunkWrapOverrides = shouldPreserveUiState ? prevPatchHunkWrapOverrides : new Map();
       if (!shouldPreserveUiState && typeof msg.revealMessageIndex === "number") {
         expandedMessageIndexes.add(msg.revealMessageIndex);
       }
@@ -1588,6 +1590,7 @@
       configuredPerformanceMode = normalizePerformanceMode(msg.chatPerformanceMode);
       if (!isTurnTimelineEnabled()) clearTurnTimelineInteractiveState();
       updateEffectivePerformanceMode({ showAutoToast: true });
+      defaultSoftWrap = msg.defaultSoftWrap === true;
       const previousToolDisplayMode = toolDisplayMode;
       const previousUserLongMessageFolding = userLongMessageFolding;
       const previousAssistantLongMessageFolding = assistantLongMessageFolding;
@@ -1791,6 +1794,7 @@
         i18n,
         dateTime,
         toolDisplayMode,
+        defaultSoftWrap,
         userLongMessageFolding,
         assistantLongMessageFolding,
         stickyUserPromptEnabled,
@@ -14202,7 +14206,7 @@
   function renderPatchHunk(entry, hunk, entryLanguage, hunkIndex) {
     const wrap = el("section", { className: "patchHunk" });
     const hunkKey = buildPatchHunkKey(entry, hunkIndex);
-    if (wrappedPatchHunkKeys.has(hunkKey)) wrap.classList.add("patchHunk-wrapEnabled");
+    if (patchHunkWrapOverrides.get(hunkKey) ?? defaultSoftWrap) wrap.classList.add("patchHunk-wrapEnabled");
     const header = el("div", { className: "patchHunkHeader" });
     const headerText = el("div", { className: "patchHunkHeaderText" });
     headerText.textContent = hunk.header || "@@";
@@ -14266,8 +14270,7 @@
       if (!(hunkEl instanceof HTMLElement)) return;
       const enabled = !hunkEl.classList.contains("patchHunk-wrapEnabled");
       hunkEl.classList.toggle("patchHunk-wrapEnabled", enabled);
-      if (enabled) wrappedPatchHunkKeys.add(hunkKey);
-      else wrappedPatchHunkKeys.delete(hunkKey);
+      patchHunkWrapOverrides.set(hunkKey, enabled);
       syncPatchWrapButton(button, enabled);
       schedulePatchLayoutSync();
     });
@@ -15093,7 +15096,8 @@
       button.setAttribute("aria-label", label);
       button.setAttribute("aria-pressed", String(wrapped));
     };
-    updateButton(false);
+    wrap.classList.toggle("codeBlock-wrapped", defaultSoftWrap);
+    updateButton(defaultSoftWrap);
     button.addEventListener("click", (event) => {
       event.preventDefault();
       event.stopPropagation();

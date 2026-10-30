@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file.
 
+## [2.20.1] - 2026-10-30
+
+### Added
+
+- Added a Default soft wrap setting under Session > Content to turn soft wrapping on or off by default for code blocks and diff hunks. The default is off, and each block can still be toggled independently.
+
 ## [2.20.0] - 2026-10-27
 
 ### Added

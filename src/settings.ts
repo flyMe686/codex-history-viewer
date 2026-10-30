@@ -73,6 +73,7 @@ export interface CodexHistoryViewerConfig {
   chatOpenPosition: ChatOpenPosition;
   chatPerformanceMode: ChatPerformanceMode;
   toolDisplayMode: ToolDisplayMode;
+  defaultSoftWrap: boolean;
   userLongMessageFolding: LongMessageFoldingMode;
   assistantLongMessageFolding: LongMessageFoldingMode;
   stickyUserPrompt: boolean;
@@ -273,6 +274,7 @@ export function getConfig(): CodexHistoryViewerConfig {
     chatOpenPosition,
     chatPerformanceMode,
     toolDisplayMode,
+    defaultSoftWrap: cfg.get<boolean>("chat.defaultSoftWrap") ?? false,
     userLongMessageFolding,
     assistantLongMessageFolding,
     stickyUserPrompt: cfg.get<boolean>("chat.stickyUserPrompt") ?? true,

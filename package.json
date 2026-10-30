@@ -3,7 +3,7 @@
   "displayName": "%ext.displayName%",
   "description": "%ext.description%",
   "icon": "resources/extension-icon.png",
-  "version": "2.20.0",
+  "version": "2.20.1",
   "publisher": "hiztam",
   "author": "HizTam",
   "license": "MIT",
@@ -6468,6 +6468,13 @@
           "description": "%cfg.chatPerformanceMode%",
           "scope": "application",
           "order": 101
+        },
+        "codexHistoryViewer.chat.defaultSoftWrap": {
+          "type": "boolean",
+          "default": false,
+          "description": "%cfg.chatDefaultSoftWrap%",
+          "scope": "application",
+          "order": 102
         },
         "codexHistoryViewer.chat.toolDisplayMode": {
           "type": "string",

@@ -494,7 +494,8 @@
     "ui.submenu.historyProjectScopeSubmenu": "Project Scope",
     "ui.submenu.historySourceSubmenu": "Source",
     "ui.submenu.historyDisplayTargetSubmenu": "Session Display Target",
-    "ui.submenu.historyCompressionSubmenu": "Compression State"
+    "ui.submenu.historyCompressionSubmenu": "Compression State",
+    "cfg.chatDefaultSoftWrap": "Enable soft wrapping by default for code blocks and diff hunks in the session viewer. Each block can still be toggled independently."
   },
   "runtime": {
     "settingsPanel.remoteCodex.section": "Troubleshooting",
@@ -2395,6 +2396,8 @@
     "chat.attachment.auto.pastedTextLines": "Pasted text #{0} +{1} lines",
     "chat.attachment.auto.truncatedTextLines": "Truncated text #{0} +{1} lines",
     "settingsPanel.option.history.defaultProjectScope.currentGroup.description": "Without an open workspace, preserve the previous project conditions; use All Project Groups if none have been saved.",
-    "settingsPanel.option.pinned.defaultProjectScope.currentGroup.description": "Without an open workspace, preserve the previous project conditions; use All Project Groups if none have been saved."
+    "settingsPanel.option.pinned.defaultProjectScope.currentGroup.description": "Without an open workspace, preserve the previous project conditions; use All Project Groups if none have been saved.",
+    "settingsPanel.setting.chat.defaultSoftWrap.label": "Default soft wrap",
+    "settingsPanel.setting.chat.defaultSoftWrap.description": "Enable soft wrapping by default for code blocks and diff hunks in the session viewer. Each block can still be toggled independently."
   }
 }

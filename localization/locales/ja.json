@@ -494,7 +494,8 @@
     "ui.submenu.historyProjectScopeSubmenu": "プロジェクト範囲",
     "ui.submenu.historySourceSubmenu": "ソース",
     "ui.submenu.historyDisplayTargetSubmenu": "セッションの表示対象",
-    "ui.submenu.historyCompressionSubmenu": "圧縮状態"
+    "ui.submenu.historyCompressionSubmenu": "圧縮状態",
+    "cfg.chatDefaultSoftWrap": "セッションビューのコードブロックと差分ハンクで、折り返しを初期状態で有効にします。各ブロックの折り返しは個別に切り替えられます。"
   },
   "runtime": {
     "settingsPanel.remoteCodex.section": "トラブルシューティング",
@@ -2395,6 +2396,8 @@
     "chat.attachment.auto.pastedTextLines": "貼り付けテキスト #{0}（+{1}行）",
     "chat.attachment.auto.truncatedTextLines": "省略されたテキスト #{0}（+{1}行）",
     "settingsPanel.option.history.defaultProjectScope.currentGroup.description": "ワークスペースがない場合は前回のプロジェクト条件を引き継ぎ、保存されていない場合は全てのプロジェクトグループを表示します。",
-    "settingsPanel.option.pinned.defaultProjectScope.currentGroup.description": "ワークスペースがない場合は前回のプロジェクト条件を引き継ぎ、保存されていない場合は全てのプロジェクトグループを表示します。"
+    "settingsPanel.option.pinned.defaultProjectScope.currentGroup.description": "ワークスペースがない場合は前回のプロジェクト条件を引き継ぎ、保存されていない場合は全てのプロジェクトグループを表示します。",
+    "settingsPanel.setting.chat.defaultSoftWrap.label": "折り返しの初期状態",
+    "settingsPanel.setting.chat.defaultSoftWrap.description": "セッションビューのコードブロックと差分ハンクで、折り返しを初期状態で有効にします。各ブロックの折り返しは個別に切り替えられます。"
   }
 }

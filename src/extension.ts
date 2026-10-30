@@ -2341,6 +2341,7 @@ async function activateExtension(context: vscode.ExtensionContext, startup: View
       const chatOpenPositionChanged = e.affectsConfiguration("codexHistoryViewer.chat.openPosition");
       const chatPerformanceModeChanged = e.affectsConfiguration("codexHistoryViewer.chat.performanceMode");
       const chatTurnTimelineModeChanged = e.affectsConfiguration("codexHistoryViewer.chat.turnTimeline.mode");
+      const defaultSoftWrapChanged = e.affectsConfiguration("codexHistoryViewer.chat.defaultSoftWrap");
       const toolDisplayModeChanged = e.affectsConfiguration("codexHistoryViewer.chat.toolDisplayMode");
       const userLongMessageFoldingChanged = e.affectsConfiguration("codexHistoryViewer.chat.userLongMessageFolding");
       const assistantLongMessageFoldingChanged = e.affectsConfiguration(
@@ -2377,6 +2378,7 @@ async function activateExtension(context: vscode.ExtensionContext, startup: View
         !chatPerformanceModeChanged &&
         !chatTurnTimelineModeChanged &&
         !toolDisplayModeChanged &&
+        !defaultSoftWrapChanged &&
         !longMessageFoldingChanged &&
         !imagesChanged &&
         !branchNavigationChanged &&
@@ -2437,7 +2439,7 @@ async function activateExtension(context: vscode.ExtensionContext, startup: View
       updateHistoryViewDescription();
       updateSearchViewDescription();
       void autoRefreshService?.configure(getConfig(), computeAutoRefreshConsumerVisible(), vscode.window.state.focused);
-      if (chatTurnTimelineModeChanged || toolDisplayModeChanged || longMessageFoldingChanged || imagesChanged) chatPanels.refreshPanels();
+      if (chatTurnTimelineModeChanged || toolDisplayModeChanged || defaultSoftWrapChanged || longMessageFoldingChanged || imagesChanged) chatPanels.refreshPanels();
       else chatPanels.refreshI18n();
       if (nativeBookmarksChanged || timeGuideChanged || sourcesEnabledChanged) chatPanels.refreshNativeBookmarks();
       if (uiLanguageChanged || resumeMethodChanged) chatPanels.refreshResumePresentation();
